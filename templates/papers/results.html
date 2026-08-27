@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<p><a href="{% url 'papers:detail' paper.id %}">← {{ paper.original_filename }}</a></p>
+<h1>Methodology Sequence</h1>
+{% if run and steps %}
+<ol class="method-path">
+{% for step in steps %}
+<li><article class="entity-card"><h2>{{ step.action }}</h2><p>{{ step.description }}</p>{% if step.inputs %}<p><strong>Inputs:</strong> {{ step.inputs|join:", " }}</p>{% endif %}{% if step.outputs %}<p><strong>Outputs:</strong> {{ step.outputs|join:", " }}</p>{% endif %}{% for item in step.evidence.all %}<div class="evidence"><strong>Evidence, page {{ item.page_number }}:</strong> “{{ item.quote }}”</div>{% endfor %}</article></li>
+{% endfor %}
+</ol>
+<p class="pipeline"><strong>Pipeline:</strong> {{ pipeline }}</p>
+{% else %}<p>No completed methodology sequence is available yet.</p>{% endif %}
+{% endblock %}

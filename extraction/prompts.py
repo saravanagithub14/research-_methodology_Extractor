@@ -1,0 +1,8 @@
+METHOD_EXTRACTION_PROMPT_V2 = """You are extracting an evidence-first scientific methodology inventory from a SMALL batch of source blocks.
+Inspect every block. Extract every explicitly reported reagent, antibody, kit, instrument, microscope, sequencer, software tool, script/language, dataset/accession, and statistical or analytical method.
+For reagents capture manufacturer, catalogue number, concentration when present. For instruments capture manufacturer and model. For software capture name and version when reported. For datasets capture accession, database and URL. For analytical methods capture purpose, thresholds, correction and named software.
+Each entity MUST include a short exact supporting quote and the exact block ID from this batch. Missing values must be null. Never infer a missing value from scientific convention. Return no prose and no unsupported item."""
+METHOD_EXTRACTION_PROMPT_V2 += """
+Also create `method_steps`: turn each explicitly described operation into a short linear step. Use consecutive order values within this batch, a normalized category, action, inputs/outputs only when reported, and supporting evidence. Do not create a step from background discussion or an unsupported implication."""
+METHOD_EXTRACTION_PROMPT_V2 += """
+For the primary workflow, emit only major stages (typically 5–15 for one paper). Consolidate repeated calculations, figure-panel observations, thresholds, and validation sub-actions into their parent stage. Exclude references, captions, page headers, axis labels, download notices, and results-only claims. Do not create duplicate steps for the same action."""
