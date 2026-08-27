@@ -23,6 +23,10 @@ The production image starts through `entrypoint.sh`, which runs `python manage.p
 
 Optionally configure `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_EMAIL`, and `DJANGO_SUPERUSER_PASSWORD` together. The startup command creates the account only when it does not already exist and never logs the password.
 
+## Render deployment
+
+Create a Docker Web Service from this repository and attach a Render PostgreSQL database as `DATABASE_URL`. The image runs migrations and optional superuser initialization before Gunicorn. Render supplies `PORT`; the container binds it automatically. Configure `DJANGO_DEBUG=False`, `DJANGO_SECRET_KEY`, `DJANGO_ALLOWED_HOSTS`, and `DJANGO_CSRF_TRUSTED_ORIGINS` for the service URL. Uploaded PDFs use local media storage, which is ephemeral on Render; use durable object storage before relying on uploads across redeploys.
+
 ## Current endpoints
 
 - `/` dashboard

@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN DJANGO_DEBUG=True python manage.py collectstatic --noinput
 RUN chmod +x /app/entrypoint.sh
-EXPOSE 8000
+EXPOSE 10000
 ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--timeout", "120"]
+CMD ["/bin/sh", "-c", "gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-10000} --workers 2 --timeout 120"]
